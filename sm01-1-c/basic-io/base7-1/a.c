@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 
 void translator(int *numb, int size, int dot_pos) {
     double answer = 0;
@@ -24,20 +25,21 @@ int main() {
     int size = 0;
     int dot_pos = -1;
     while ((c = getchar()) != EOF) {
-        if (c == ' ') {
-            if (size > 0)
-                translator(numb, size, dot_pos);
-            size = 0;
-            dot_pos = -1;
-        } else {
+        if (isdigit(c) || c == '.') {
             if (c == '.')
                 dot_pos = size;
             if (size > 2000)
                 return 1;
             numb[size++] = c;
+        } else {
+            if (size > 0)
+                translator(numb, size, dot_pos);
+            size = 0;
+            dot_pos = -1;
         }
     }
     if (size > 0)
         translator(numb, size, dot_pos);
     return 0;
 }
+
