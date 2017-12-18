@@ -28,7 +28,7 @@ int main() {
     int dot_pos = -1;
     do {
         c = getchar();
-        if (isdigit(c) || c == '.') {
+        if ((isdigit(c) && c < '8') || c == '.') {
             if (c == '.')
                 dot_pos = size;
             numb[size++] = c;

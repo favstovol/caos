@@ -1,7 +1,10 @@
 #include <stdio.h>
 
+enum { SQUARE_OF_BASE = 256 };
+enum { MAX_LEN = 100 };
+
 int main() {
-    char s[100];
+    char s[MAX_LEN];
     int flag = 1;
     while (scanf("%s", s) == 1) {
         for (int i = 0; i < 4; ++i) {
@@ -11,11 +14,11 @@ int main() {
                     printf("\n");
                 return 0;
             }
-            printf("%lu\n", d + 256 * (c + 256 * (b + 256 * a)));
+            printf("%lu\n", d + SQUARE_OF_BASE
+    * (c + SQUARE_OF_BASE * (b + SQUARE_OF_BASE * a)));
             flag = 0;
         }
     }
     if (flag)
         printf("\n");
 }
-
