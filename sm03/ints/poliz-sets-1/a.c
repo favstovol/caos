@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <stdint.h>
+#include <inttypes.h>
 
-#define ull unsigned long long
+#define ull uint64_t
+
+enum { DIGITS_NUMB = 10 };
+enum { ALPHA_NUMB = 26 };
 
 int main() {
     ull stack[1010];
@@ -15,9 +20,9 @@ int main() {
             if (isdigit(c)) {
                 pos = c - '0';
             } else if (isupper(c)) {
-                pos = c - 'A' + 10;
+                pos = c - 'A' + DIGITS_NUMB;
             } else {
-                pos = c - 'a' + 36;
+                pos = c - 'a' + DIGITS_NUMB + ALPHA_NUMB;
             }
             cur_set |= (ull) 1 << pos;
         } else {
@@ -49,15 +54,15 @@ int main() {
     }
     ull cur_pos = 1;
     char st[] = {'0', 'A', 'a'};
-    int max_numb[] = {10, 26, 26};
+    int max_numb[] = {DIGITS_NUMB, ALPHA_NUMB, ALPHA_NUMB};
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < max_numb[i]; ++j) {
             if (cur_set & cur_pos) {
-                printf("%c", st[i] + j);
+                putchar(st[i] + j);
             }
             cur_pos <<= 1;
         }
     }
-    printf("\n");
+    putchar('\n');
     return 0;
 }

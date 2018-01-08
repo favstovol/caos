@@ -1,19 +1,20 @@
 #include <stdio.h>
+#include <stdint.h>
+#include <inttypes.h>
+
+#define i32 int32_t
 
 int main() {
-    long n;
+    i32 n;
     int w;
-    scanf("%ld %d", &n, &w);
-    long mx = 1;
-    for (long i = 0; i + 1 < n; ++i) {
-        mx *= 2;
+    scanf("%" PRId32 " %d", &n, &w);
+    i32 mx = 1 << (n - 1);
+    for (i32 i = 0; i < mx; ++i) {
+        printf("|%*" PRIx32 "|%*" PRId32 "|%*" PRId32 "|\n", w, i, w, i, w, i);
     }
-    for (long i = 0; i < mx; ++i) {
-        printf("|%*lx|%*ld|%*ld|\n", w, i, w, i, w, i);
-    }
-    long zn = -mx + 1;
-    for (long i = mx; i < mx * 2; ++i) {
-        printf("|%*lx|%*ld|%*ld|\n", w, i, w, i, w, zn);
+    i32 zn = -mx + 1;
+    for (i32 i = mx; i < mx * 2; ++i) {
+        printf("|%*" PRIx32 "|%*" PRId32 "|%*" PRId32 "|\n", w, i, w, i, w, zn);
         ++zn;
     }
 }

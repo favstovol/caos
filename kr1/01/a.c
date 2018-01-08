@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+enum { BASE = 8 };
+
 int main() {
     unsigned long long m;
     scanf("%llu", &m);
@@ -8,8 +10,8 @@ int main() {
     unsigned long long answer = 0;
     do {
         c = getchar();
-        if ('0' <= c && c <= '7') {
-            cur = (cur * 8 + (unsigned long) (c - '0')) % m;
+        if ('0' <= c && c < '0' + BASE) {
+            cur = (cur * BASE + (unsigned long) (c - '0')) % m;
         } else {
             if (cur != 0 && cur % m > answer) {
                 answer = cur % m;

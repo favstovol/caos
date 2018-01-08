@@ -3,8 +3,8 @@
 #include <inttypes.h>
 
 int main() {
-    uint64_t answer = 0;
-    uint64_t cur_set = 0;
+    uint32_t answer = 0;
+    uint32_t cur_set = 0;
     int numb;
     while ((scanf("%d", &numb)) == 1) {
         if (numb >= 0 && numb <= 31) {
@@ -15,6 +15,6 @@ int main() {
         }
     }
     answer ^= cur_set;
-    printf("%" PRIx64 "\n", answer);
+    printf("%" PRIx32 "\n", answer);
     return 0;
 }
