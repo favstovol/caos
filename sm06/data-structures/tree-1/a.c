@@ -38,11 +38,14 @@ int main() {
     while (scanf("%d", &x) == 1) {
         while (x != 0) {
             head = insert(head, x);
-            scanf("%d", &x);
+            if (scanf("%d", &x) != 1) {
+                break;
+            }
         }
         if (head) {
             RevOrder(head);
         }
+        head = NULL;
         printf("0 ");
     }
     printf("\n");
