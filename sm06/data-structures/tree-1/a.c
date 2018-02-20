@@ -12,9 +12,11 @@ struct Elem {
 Elem *insert(Elem *t, int x) {
     if (t == NULL) {
         t = malloc(sizeof(Elem));
-        (*t).numb = x;
-        (*t).left = NULL;
-        (*t).right = NULL;
+        if (t != NULL) {
+            (*t).numb = x;
+            (*t).left = NULL;
+            (*t).right = NULL;
+        }
     } else if (x > (*t).numb) {
         (*t).right = insert((*t).right, x);
     } else if (x < (*t).numb) {
@@ -37,7 +39,12 @@ int main() {
     int x;
     while (scanf("%d", &x) == 1) {
         while (x != 0) {
-            head = insert(head, x);
+            Elem *new_head = insert(head, x);
+            if (new_head == NULL) {
+                RevOrder(head);
+                return -1;
+            }
+            head = new_head;
             if (scanf("%d", &x) != 1) {
                 break;
             }
