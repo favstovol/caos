@@ -2,15 +2,14 @@
         .global main
 main:
         call    readi32
+start:
         cmpl    $0, %eax
         jl      end
-start:
         push    %eax
         call    writei32
         call    nl
         pop     %eax
         decl    %eax
-        cmpl    $0, %eax
-        jnl     start
+        jmp     start
 end:
         call    finish

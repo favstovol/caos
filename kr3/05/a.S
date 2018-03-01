@@ -12,7 +12,14 @@ compare:
         movl    12(%ebp), %eax
         movl    (%eax), %eax
         movl    8(%ebp), %edx
-        subl    (%edx), %eax
+        movl    (%edx), %edx
+        cmpl    %edx, %eax
+        ja      plus
+minus:
+        movl    $1, %eax
+        jmp     exit_cmp
+plus:
+        movl    $-1, %eax
 exit_cmp:
         movl    %ebp, %esp
         popl    %ebp
