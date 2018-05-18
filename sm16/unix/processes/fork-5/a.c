@@ -6,27 +6,29 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int main() {
-    pid_t pid;
-    for (int i = 1; i <= 3; ++i) {
-        pid = fork();
-        char s[10];
-        long int x;
-        if (pid == 0) {
-            int c_size = 0;
-            int r_size = 8;
-            while (c_size != r_size)
-                c_size += read(0, s + c_size, r_size - c_size);
-            sscanf(s, "%ld", &x);
-            printf("%d %ld\n", i, x * x);
-            fflush(stdout);
-            return 0;
-        }
+void f(int n, int p) {
+    if (n == 0) {
+        printf("\n");
+        fflush(stdout);
+        return;
+    }
+    printf(" %d", p);
+    fflush(stdout);
+    pid_t pid = fork();
+    if (pid == 0) {
+        f(n - 1, p + 1);
+        exit(0);
     }
     int status;
-    for (int i = 0; i < 3; ++i) {
-        while ((pid = wait(&status)) > 0)
-            pid = wait(&status);
-    }
+    waitpid(pid, &status, 0);
+    exit(0);
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    printf("1");
+    fflush(stdout);
+    f(n - 1, 2);
     return 0;
 }

@@ -10,11 +10,11 @@ _start:
         //0x30 - 0, 0x39 - 9
         cmpl    $0, %eax
         jle     exit
-        cmpb    $0x30, (%esp)
+        cmpb    $'0', (%esp)
         jb      write
-        cmpb    $0x39, (%esp)
+        cmpb    $'9', (%esp)
         ja      write
-        movb    $0x30, (%esp)
+        movb    $'0', (%esp)
 write:
         movl    $4, %eax
         movl    $1, %ebx

@@ -10,7 +10,9 @@ int main(int argc, char *argv[]) {
     unsigned short reversed_x;
     while (scanf("%hu", &x) == 1) {
         reversed_x = (x << 8) | (x >> 8);
-        write(fd, &reversed_x, 2);
+        ssize_t ret_value = write(fd, &reversed_x, sizeof(reversed_x));
+        if (ret_value < 0)
+            break;
     }
     close(fd);
 }

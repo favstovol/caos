@@ -6,6 +6,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+void SmthWentWrong(struct FileContent *answer) {
+    answer->size = -1;
+    free(answer->data);
+    answer->data = NULL;
+}
+
 struct FileContent read_file(int fd) {
     struct FileContent answer;
     answer.size = 0;
@@ -18,9 +24,7 @@ struct FileContent read_file(int fd) {
         while (size < buf_size) {
             int numb = read(fd, (local_buf + size), buf_size - size);
             if (numb == -1) {
-                answer.size = -1;
-                free(answer.data);
-                answer.data = NULL;
+                SmthWentWrong(&answer);
                 return answer;
             }
             if (numb == 0) {
@@ -31,9 +35,7 @@ struct FileContent read_file(int fd) {
         }
         char *new_data = realloc(answer.data, answer.size + size + 1);
         if (new_data == NULL) {
-            answer.size = -1;
-            free(answer.data);
-            answer.data = NULL;
+            SmthWentWrong(&answer);
             return answer;
         }
         answer.data = new_data;

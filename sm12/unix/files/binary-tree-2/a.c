@@ -13,11 +13,13 @@ struct Node
 };
 
 void print_node(int fd, int ps) {
-    lseek(fd, 12 * ps, SEEK_SET);
+    lseek(fd, sizeof(struct Node) * ps, SEEK_SET);
     struct Node node;
     int size = 0;
-    while (size != 12) {
-        int numb = read(fd, (&node) + size, 12 - size);
+    while (size != sizeof(struct Node)) {
+        int numb = read(fd, (&node) + size, sizeof(struct Node) - size);
+        if (numb < 0)
+            return;
         size += numb;
     }
     if (node.right_idx != 0)
